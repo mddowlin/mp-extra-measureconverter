@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.pager);
         viewPager.setAdapter(new ThreeFragmentPagerAdapter(fragmentManager));
 
+        viewPager.setCurrentItem(1);
+
     }
 
 

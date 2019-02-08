@@ -17,7 +17,7 @@ public class FragLength extends Fragment implements Button.OnClickListener{
 
 
     int lastEdited=0;
-    EditText editFt, editM, editCm, editm, editKm;
+    EditText editIn, editFt, editM, editCm, editm, editKm;
     Button convBtn;
 
 
@@ -131,6 +131,26 @@ public class FragLength extends Fragment implements Button.OnClickListener{
                 }
         );
 
+        editIn = myView.findViewById(R.id.editIn);
+        editIn.addTextChangedListener(
+                new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        //doing nothing.
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        // do nothing here.
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        lastEdited = 5;
+                    }
+                }
+        );
+
         convBtn = myView.findViewById(R.id.convBtn2);
         convBtn.setOnClickListener(this);
 
@@ -146,10 +166,15 @@ public class FragLength extends Fragment implements Button.OnClickListener{
             if(tempStr.equals("") || tempStr.equals("."))
                 return;
             double lengthNow = Double.parseDouble(tempStr);
-            double milesNow= lengthNow * .000189394;
+
+            double inchNow = lengthNow * 12;
+            double milesNow = lengthNow * .000189394;
             double cmNow = lengthNow * 30.48;
-            double mNow =lengthNow * .3048;
+            double mNow = lengthNow * .3048;
             double kmNow = lengthNow * .0003048;
+
+            String inchStr = String.format("%.1f", inchNow);
+            editIn.setText(inchStr);
 
             String mileStr = String.format("%.5f",milesNow);
             editM.setText(mileStr);
@@ -171,10 +196,15 @@ public class FragLength extends Fragment implements Button.OnClickListener{
             if(tempStr.equals("") || tempStr.equals("."))
                 return;
             double lengthNow = Double.parseDouble(tempStr);
-            double feetNow= lengthNow * 5280;
+
+            double inchNow = lengthNow * 63360;
+            double feetNow = lengthNow * 5280;
             double cmNow = lengthNow * 160934;
-            double mNow =lengthNow * 1609.34;
+            double mNow = lengthNow * 1609.34;
             double kmNow = lengthNow * 1.60934;
+
+            String inchStr = String.format("%.1f", inchNow);
+            editIn.setText(inchStr);
 
             String feetStr = String.format("%.1f",feetNow);
             editFt.setText(feetStr);
@@ -196,10 +226,15 @@ public class FragLength extends Fragment implements Button.OnClickListener{
             if(tempStr.equals("") || tempStr.equals("."))
                 return;
             double lengthNow = Double.parseDouble(tempStr);
-            double feetNow= lengthNow * .0328084;
+
+            double inchNow = lengthNow / 2.54;
+            double feetNow = lengthNow * .0328084;
             double milesNow = lengthNow * .0000062137;
-            double mNow =lengthNow * .01;
+            double mNow = lengthNow * .01;
             double kmNow = lengthNow * .00001;
+
+            String inchStr = String.format("%.1f", inchNow);
+            editIn.setText(inchStr);
 
             String feetStr = String.format("%.3f",feetNow);
             editFt.setText(feetStr);
@@ -222,10 +257,14 @@ public class FragLength extends Fragment implements Button.OnClickListener{
                 return;
             double lengthNow = Double.parseDouble(tempStr);
 
-            double feetNow= lengthNow * 3.28084;
+            double inchNow = lengthNow * 39.3701;
+            double feetNow = lengthNow * 3.28084;
             double milesNow = lengthNow * 0.000621371;
-            double cmNow =lengthNow * 100;
+            double cmNow = lengthNow * 100;
             double kmNow = lengthNow * .001;
+
+            String inchStr = String.format("%.1f", inchNow);
+            editIn.setText(inchStr);
 
             String feetStr = String.format("%.2f",feetNow);
             editFt.setText(feetStr);
@@ -248,10 +287,14 @@ public class FragLength extends Fragment implements Button.OnClickListener{
                 return;
             double lengthNow = Double.parseDouble(tempStr);
 
-            double feetNow= lengthNow * 3280.84;
+            double inchNow = lengthNow * 39370.079;
+            double feetNow = lengthNow * 3280.84;
             double milesNow = lengthNow * 0.621371;
-            double cmNow =lengthNow * 100000;
+            double cmNow = lengthNow * 100000;
             double mNow = lengthNow * 1000;
+
+            String inchStr = String.format("%.1f", inchNow);
+            editIn.setText(inchStr);
 
             String feetStr = String.format("%.1f",feetNow);
             editFt.setText(feetStr);
@@ -265,6 +308,37 @@ public class FragLength extends Fragment implements Button.OnClickListener{
             String mStr = String.format("%.1f",mNow);
             editm.setText(mStr);
             lastEdited = 4;
+        }
+        //Inches
+        else if (lastEdited == 5)
+        {
+            String tempStr = editIn.getText().toString();
+            if(tempStr.equals("") || tempStr.equals("."))
+                return;
+            double lengthNow = Double.parseDouble(tempStr);
+
+            double feetNow = lengthNow * .0833333;
+            double milesNow = lengthNow / 63360;
+            double cmNow = lengthNow * 2.54;
+            double mNow = lengthNow * .0254;
+            double kmNow = lengthNow * .0000254;
+
+            String feetStr = String.format("%.2f",feetNow);
+            editFt.setText(feetStr);
+
+            String mileStr = String.format("%.6f",milesNow);
+            editM.setText(mileStr);
+
+            String cmStr = String.format("%.2f",cmNow);
+            editCm.setText(cmStr);
+
+            String mStr = String.format("%.3f",mNow);
+            editm.setText(mStr);
+
+            String kmStr = String.format("%.5f",kmNow);
+            editKm.setText(kmStr);
+
+            lastEdited = 6;
         }
     }
 
